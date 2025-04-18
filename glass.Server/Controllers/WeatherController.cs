@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using dotenv.net;
 
 namespace YourNamespace.Controllers
 {
@@ -8,11 +9,23 @@ namespace YourNamespace.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly HttpClient _httpClient;
-        private const string API_KEY = "ZTUxNjgxYTg1ZGM4NWFjODljMGQzMT";
+        private readonly string? _apiKey; // API key stored here
 
         public WeatherController(HttpClient httpClient)
         {
             _httpClient = httpClient;
+
+            // Load environment variables from the .env file
+            DotEnv.Load();
+
+            // Retrieve the API key from environment variables
+            _apiKey = Environment.GetEnvironmentVariable("WILLY_WEATHER_API_KEY");
+
+            // Throw an exception if the API key is missing
+            if (string.IsNullOrEmpty(_apiKey))
+            {
+                throw new InvalidOperationException("API_KEY environment variable is not set.");
+            }
         }
 
         [HttpGet("geo")]
@@ -23,27 +36,23 @@ namespace YourNamespace.Controllers
                 return BadRequest(new { error = "Latitude and Longitude are required" });
             }
 
-            // Construct the URL with query parameters for lat, lon, range, and units
-            var url = $"https://api.willyweather.com.au/v2/{API_KEY}/search.json?lat={lat.Value}&lng={lon.Value}&range=500&units=distance:km";
+            // Use _apiKey instead of API_KEY here
+            var url = $"https://api.willyweather.com.au/v2/{_apiKey}/search.json?lat={lat.Value}&lng={lon.Value}&range=500&units=distance:km";
 
             try
             {
-                // Send the GET request to the WillyWeather API
                 var response = await _httpClient.GetAsync(url);
                 var responseBody = await response.Content.ReadAsStringAsync();
 
-                // Return the response if successful, otherwise return error code
                 return response.IsSuccessStatusCode
                     ? Ok(JsonSerializer.Deserialize<object>(responseBody))
                     : StatusCode((int)response.StatusCode, responseBody);
             }
             catch (Exception ex)
             {
-                // Handle exceptions, such as network errors
                 return StatusCode(500, new { error = "Error fetching data from Willy Weather API", details = ex.Message });
             }
         }
-
 
         [HttpGet("name")]
         public async Task<IActionResult> GetLocationByName([FromQuery] string? locationname)
@@ -53,7 +62,8 @@ namespace YourNamespace.Controllers
                 return BadRequest(new { error = "A valid location name is required" });
             }
 
-            var url = $"https://api.willyweather.com.au/v2/{API_KEY}/search.json?query={locationname}&limit=10";
+            // Use _apiKey instead of API_KEY here
+            var url = $"https://api.willyweather.com.au/v2/{_apiKey}/search.json?query={locationname}&limit=10";
 
             try
             {

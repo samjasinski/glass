@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Heading, Box, Text, Flex } from "@radix-ui/themes";
 import { Location } from "../Interface";
 import { ResetIcon } from '@radix-ui/react-icons';
+import LocationMap from "./LocationMap";
 
 const LocationDisplay: React.FC<{ location: Location; onBack: () => void }> = ({
     location,
@@ -37,7 +38,7 @@ const LocationDisplay: React.FC<{ location: Location; onBack: () => void }> = ({
                     {/* Right side: Map */}
                     <Box className="p-5 w-1/2">
                         <div className="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-500 rounded">
-                            Map goes here
+                            <LocationMap lat={location.lat} long={location.lng} ></LocationMap>
                         </div>
                     </Box>
                 </Flex>

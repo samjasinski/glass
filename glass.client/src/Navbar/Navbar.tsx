@@ -4,7 +4,6 @@ import { HomeIcon, BellIcon, GlobeIcon } from '@radix-ui/react-icons';
 
 const Navbar = () => {
     return (
-        
         <NavigationMenu.Root className="relative flex justify-center w-screen z-[1] mt-5 p-5">
             <NavigationMenu.List className="flex justify-center gap-x-15 bg-white px-4 py-2 rounded-md  list-none">
                 <NavigationMenu.Item>

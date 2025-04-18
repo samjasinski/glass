@@ -7,6 +7,7 @@ interface LocationSearchProps {
     locationData: Location[]; // Array of Location objects
     setLocationData: React.Dispatch<React.SetStateAction<Location[]>>; // useState setter function
 }
+
 const LocationSearch = ({
     searchType,
     setLocationData,

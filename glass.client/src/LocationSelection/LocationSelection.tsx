@@ -5,7 +5,7 @@ import { SearchType } from "../Interface";
 import { Location } from "../Interface";
 import LocationGrid from "./LocationGrid";
 import LocationItem from "./LocationItem";
-import { Box, Card } from "@radix-ui/themes";
+import { Box } from "@radix-ui/themes";
 
 const LocationSelection: React.FC<{
     onSelectLocation: (location: Location) => void;

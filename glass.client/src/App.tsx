@@ -45,7 +45,7 @@ function AlertsPage() {
     );
 }
 
-function App() {
+function App() {    
     return (
         <>
             <Header />

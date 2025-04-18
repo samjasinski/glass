@@ -20,28 +20,30 @@ const LocationDisplay: React.FC<{ location: Location; onBack: () => void }> = ({
                 </button>
             </div>
 
-            <Card variant="surface" className="transition-all duration-200 w-full">
-                <Flex direction="row" gap="5">
+            <Card variant="surface" className="transition-all duration-200 w-full max-w-5xl mx-auto">
+                <div className="flex flex-col md:flex-row gap-5">
                     {/* Left side: Info */}
-                    <Box className="p-5 w-1/2">
+                    <Box className="p-5 w-full md:w-1/2 flex flex-col items-center justify-center">
                         <Box className="mb-5">
                             <Heading as="h1" size="4">
                                 {location.name}
                             </Heading>
                         </Box>
-                        <Text className="block"><strong>Region:</strong> {location.region}</Text>
-                        <Text className="block"><strong>State:</strong> {location.state}</Text>
-                        <Text className="block"><strong>Latitude:</strong> {location.lat}</Text>
-                        <Text className="block"><strong>Longitude:</strong> {location.lng}</Text>
+                        <Box className="text-left">
+                            <Text className="block"><strong>Region:</strong> {location.region}</Text>
+                            <Text className="block"><strong>State:</strong> {location.state}</Text>
+                            <Text className="block"><strong>Latitude:</strong> {location.lat}</Text>
+                            <Text className="block"><strong>Longitude:</strong> {location.lng}</Text>
+                        </Box>
                     </Box>
 
                     {/* Right side: Map */}
-                    <Box className="p-5 w-1/2">
-                        <div className="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-500 rounded">
-                            <LocationMap lat={location.lat} long={location.lng} ></LocationMap>
+                    <Box className="p-5 w-full md:w-1/2">
+                        <div className="w-full h-48 md:h-64 bg-gray-100 flex items-center justify-center text-gray-500 rounded overflow-hidden">
+                            <LocationMap lat={location.lat} long={location.lng} />
                         </div>
                     </Box>
-                </Flex>
+                </div>
             </Card>
         </div>
     );

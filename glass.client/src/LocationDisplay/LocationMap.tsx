@@ -8,15 +8,14 @@ interface LocationMapProps {
 
 const containerStyle = {
     width: '100%',
-    height: '200px', // Adjust to your needs
+    height: '100%',
 };
 
 const LocationMap: React.FC<LocationMapProps> = ({ lat, long }) => {
-
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: apiKey, 
+        googleMapsApiKey: apiKey,
     });
 
     const center = {

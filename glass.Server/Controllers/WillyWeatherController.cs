@@ -6,12 +6,12 @@ namespace YourNamespace.Controllers
 {
     [Route("api/locations")]
     [ApiController]
-    public class WeatherController : ControllerBase
+    public class WillyWeatherController : ControllerBase
     {
         private readonly HttpClient _httpClient;
         private readonly string? _apiKey; // API key stored here
 
-        public WeatherController(HttpClient httpClient)
+        public WillyWeatherController(HttpClient httpClient)
         {
             _httpClient = httpClient;
 

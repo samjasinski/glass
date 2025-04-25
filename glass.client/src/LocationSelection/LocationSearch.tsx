@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Location } from "../Interface";
+import { Location } from "../Types/Location";
 
 interface LocationSearchProps {
     searchType: "geo" | "name";

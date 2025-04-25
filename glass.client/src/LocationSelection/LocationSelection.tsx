@@ -1,7 +1,7 @@
 import LocationSearch from "./LocationSearch";
 import SearchOptionsToggle from "./SearchOptionsToggle";
 import React, { useState } from "react";
-import { SearchType } from "../Interface";
+import { SearchType } from "../Types/SearchType";
 import { Location } from "../Interface";
 import LocationGrid from "./LocationGrid";
 import LocationItem from "./LocationItem";

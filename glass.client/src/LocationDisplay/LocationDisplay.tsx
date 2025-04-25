@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Heading, Box, Text, Flex } from "@radix-ui/themes";
-import { Location } from "../Interface";
+import { Location } from "../Types/Location";
 import { ResetIcon } from '@radix-ui/react-icons';
 import LocationMap from "./LocationMap";
 

@@ -10,13 +10,22 @@ namespace glass.Server.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("username")]
         public string Username { get; set; }
 
-        [BsonElement("password")]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }  // store hashed password
 
-        [BsonElement("locations")]
-        public List<string> Locations { get; set; } = new List<string>();
+        public List<string> Locations { get; set; } = new();
+    }
+
+    public class RegisterDto
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class LoginDto
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }

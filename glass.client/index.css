@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+// trying stop sup size thead app aside everything looked source small
+span, html {
+    font-size: 25px;
+}

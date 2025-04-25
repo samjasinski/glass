@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Heading, Section, Text } from "@radix-ui/themes";
-
 import LocationSelection from "./LocationSelection/LocationSelection";
 import LocationDisplay from "./LocationDisplay/LocationDisplay";
 import Header from "./Header/Header";
-import { Location } from "./Interface";
+import { Location } from "./Types/Location";
 import Navbar from "./Navbar/NavBar";
+import RequireAuth from "../src/Auth/RequireAuth";
+import Login from "./Login/Login";
 
 
 function LocationPage() {
@@ -45,18 +46,19 @@ function AlertsPage() {
     );
 }
 
-function App() {    
+function App() {
+
     return (
         <>
             <Header />
-                <Navbar />
+            <Navbar />
             <Routes>
-                <Route path="/" element={<DashboardPage />} />
-                <Route path="/dash" element={<DashboardPage />} />
-                <Route path="/location-search" element={<LocationPage />} />
-                <Route path="/alerts" element={<AlertsPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+                <Route path="/dash" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+                <Route path="/location-search" element={<RequireAuth><LocationPage /></RequireAuth>} />
+                <Route path="/alerts" element={<RequireAuth><AlertsPage /></RequireAuth>} />
             </Routes>
-            
         </>
     );
 }

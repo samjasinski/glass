@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { SearchType } from "../Interface";
-import { Box, Card, Heading } from "@radix-ui/themes";
+import { SearchType } from "../Types/SearchType";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
 interface SearchOptionsToggleProps {

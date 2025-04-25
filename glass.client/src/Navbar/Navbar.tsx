@@ -1,8 +1,16 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { Link } from 'react-router-dom';
-import { HomeIcon, BellIcon, GlobeIcon } from '@radix-ui/react-icons';
+import { Link, useNavigate } from 'react-router-dom';
+import { HomeIcon, BellIcon, GlobeIcon, ExitIcon } from '@radix-ui/react-icons';
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("authToken");
+        navigate("/login");
+    };
+
     return (
         <NavigationMenu.Root className="relative flex justify-center w-screen z-[1] mt-5 p-5">
             <NavigationMenu.List className="flex justify-center gap-x-15 bg-white px-4 py-2 rounded-md  list-none">
@@ -41,6 +49,17 @@ const Navbar = () => {
                         </Link>
                     </NavigationMenu.Link>
                 </NavigationMenu.Item>
+
+                <NavigationMenu.Item>
+                    <button
+                        onClick={handleLogout}
+                        className="inline-flex items-center justify-center px-4 py-2 font-medium text-[15px] leading-none text-indigo-300 rounded-md hover:bg-indigo-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 transition-colors"
+                    >
+                        <ExitIcon className="block sm:hidden w-6 h-6" />
+                        <span className="hidden sm:inline">Logout</span>
+                    </button>
+                </NavigationMenu.Item>
+
             </NavigationMenu.List>
         </NavigationMenu.Root>
     );

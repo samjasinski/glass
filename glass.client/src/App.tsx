@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Heading, Section, Text } from "@radix-ui/themes";
 import LocationSelection from "./LocationSelection/LocationSelection";
 import LocationDisplay from "./LocationDisplay/LocationDisplay";
@@ -47,11 +47,21 @@ function AlertsPage() {
 }
 
 function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        // this efectivly hides the nav bar
+        // only thing that is actually missing is a check that the token is real
+        // still, other routes are protected by RequireAuth so even if the nav shows it wouldn't work
+        const token = localStorage.getItem("authToken");
+        setIsLoggedIn(!!token);
+    }, [location]);
 
     return (
         <>
             <Header />
-            <Navbar />
+            {isLoggedIn && <Navbar />}
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<RequireAuth><DashboardPage /></RequireAuth>} />

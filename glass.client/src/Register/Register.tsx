@@ -25,7 +25,6 @@ const Register = () => {
             if (err.response?.status === 400) {
                 setMessage(err.response.data);
             }
-            console.log(message)
         }
     };
 

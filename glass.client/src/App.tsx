@@ -8,6 +8,8 @@ import { Location } from "./Types/Location";
 import Navbar from "./Navbar/NavBar";
 import RequireAuth from "../src/Auth/RequireAuth";
 import Login from "./Login/Login";
+import Register from "./Register/Register";
+import Dash from "./Dash/Dash";
 
 
 function LocationPage() {
@@ -63,6 +65,7 @@ function App() {
             {isLoggedIn && <Navbar />}
             <Routes>
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/" element={<RequireAuth><DashboardPage /></RequireAuth>} />
                 <Route path="/dash" element={<RequireAuth><DashboardPage /></RequireAuth>} />
                 <Route path="/location-search" element={<RequireAuth><LocationPage /></RequireAuth>} />

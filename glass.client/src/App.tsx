@@ -31,8 +31,7 @@ function LocationPage() {
 function DashboardPage() {
     return (
         <Section size="1">
-            <Heading>DASH</Heading>
-            <Text>coming soon...</Text>
+            <Dash/>
         </Section>
     );
 }

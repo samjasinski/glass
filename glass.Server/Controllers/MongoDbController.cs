@@ -69,7 +69,19 @@ namespace glass.Server.Controllers
             };
 
             await _mongoDbService.InsertUserAsync(user);
-            return Ok("Registered successfully");
+
+            string token;
+            try
+            {
+                token = GenerateJwtToken(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "JWT generation failed");
+            }
+
+            // user was created, now return a token
+            return Ok(new { token });
         }
 
         [HttpPost("login")]

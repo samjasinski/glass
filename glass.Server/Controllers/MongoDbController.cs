@@ -57,9 +57,13 @@ namespace glass.Server.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
+            // did we get both a username and a password submitted (front end validation should force this anyhow)
+            if (string.IsNullOrWhiteSpace(dto.Username) || string.IsNullOrWhiteSpace(dto.Password))
+                return BadRequest("Username and password are required");
+
             var existing = await _mongoDbService.GetUserByUsernameAsync(dto.Username);
             if (existing != null)
-                return BadRequest("Username already taken");
+                return BadRequest("That username is already taken. Sorry!");
 
             var user = new UserModel
             {
@@ -95,16 +99,13 @@ namespace glass.Server.Controllers
             try
             {
                 token = GenerateJwtToken(user);
-                Debug.WriteLine("#################################: " + token);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("JWT generation error: " + ex.Message);
                 return StatusCode(500, "JWT generation failed");
             }
 
             return Ok(new { token });
-            //return Ok();
         }
 
         private string GenerateJwtToken(UserModel user)

@@ -12,6 +12,7 @@
     <Folder Include="src\Footer\" />
     <Folder Include="src\Login\" />
     <Folder Include="src\Auth\" />
+    <Folder Include="src\Dash\" />
     <Folder Include="src\Register\" />
     <Folder Include="src\public\" />
   </ItemGroup>

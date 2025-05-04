@@ -12,7 +12,7 @@ namespace glass.Server.Services
     public class MongoDbService
     {
         public readonly IMongoCollection<UserModel> _users;
-        private readonly string _jwtSecretKey = "supersecretkey123"; // Same key you use for generating JWT tokens
+        private readonly string _jwtSecretKey = Environment.GetEnvironmentVariable("JWT_SECRET")!; // Same key you use for generating JWT tokens
 
         public MongoDbService(MongoDbSettings settings)
         {

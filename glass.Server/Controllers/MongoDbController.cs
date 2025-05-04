@@ -150,7 +150,7 @@ namespace glass.Server.Controllers
         private string GenerateJwtToken(UserModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            // used ! to say that the _secret variable is not going to be null here as I have already checked for null whenthe variable was initialized in the constructor
+            // used ! to say that the _secret variable is not going to be null here as I have already checked for null when the variable was initialized in the constructor
             // constructor = set up variables when creating a class so that the class is ready to be used later.
             var key = Convert.FromBase64String(_secret!); ; 
 

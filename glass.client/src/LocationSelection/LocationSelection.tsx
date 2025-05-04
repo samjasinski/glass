@@ -3,7 +3,7 @@ import SearchOptionsToggle from "./SearchOptionsToggle";
 import React, { useState } from "react";
 import { SearchType } from "../Types/SearchType";
 import { Location } from "../Interface";
-import LocationGrid from "./LocationGrid";
+import LocationGrid from "../LocationDisplay/LocationGrid";
 import LocationItem from "./LocationItem";
 import { Box } from "@radix-ui/themes";
 

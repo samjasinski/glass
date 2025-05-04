@@ -11,7 +11,7 @@ namespace glass.Server.Services
 {
     public class MongoDbService
     {
-        private readonly IMongoCollection<UserModel> _users;
+        public readonly IMongoCollection<UserModel> _users;
         private readonly string _jwtSecretKey = "supersecretkey123"; // Same key you use for generating JWT tokens
 
         public MongoDbService(MongoDbSettings settings)

@@ -41,6 +41,19 @@ namespace glass.Server.Services
             await _users.InsertOneAsync(user);
         }
 
+        public async Task AddLocationToUserAsync(string userId, string locationId)
+        {
+            var filter = Builders<UserModel>.Filter.Eq(u => u.Id, userId);
+            var update = Builders<UserModel>.Update.Push(u => u.Locations, locationId);
+
+            var result = await _users.UpdateOneAsync(filter, update);
+
+            if (result.MatchedCount == 0)
+            {
+                throw new Exception("User not found");
+            }
+        }
+
         // Validate and decode JWT token
         public ClaimsPrincipal ValidateToken(string token)
         {

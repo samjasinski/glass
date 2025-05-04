@@ -90,6 +90,62 @@ namespace glass.Server.Controllers
             return Ok(new { token });
         }
 
+        public class AddLocationRequest
+        {
+            required public string  Id { get; set; }
+        }
+
+        [HttpPost("addLocation")]
+        public async Task<IActionResult> AddLocationToUser([FromBody] string locationId)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (string.IsNullOrEmpty(token))
+                return Unauthorized();
+
+            var user = await _mongoDbService.GetUserFromTokenAsync(token);
+            if (user == null)
+                return Unauthorized();
+
+            if (user.Locations == null)
+                user.Locations = new List<string>();
+
+            if (user.Locations.Contains(locationId))
+                return Conflict("This location is already saved on your account!.");
+
+            user.Locations.Add(locationId);
+
+            // Update user in DB
+            var filter = Builders<UserModel>.Filter.Eq(u => u.Id, user.Id);
+            var update = Builders<UserModel>.Update.Set(u => u.Locations, user.Locations);
+
+            await _mongoDbService._users.UpdateOneAsync(filter, update);
+
+            return Ok();
+        }
+
+        // still untested
+        [HttpPost("deleteLocation")]
+        public async Task<IActionResult> RemoveLocationFromUser([FromBody] string locationId)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (string.IsNullOrEmpty(token))
+                return Unauthorized();
+
+            var user = await _mongoDbService.GetUserFromTokenAsync(token);
+            if (user == null)
+                return Unauthorized();
+
+            if (user.Locations == null || !user.Locations.Contains(locationId))
+                return Conflict("This location is not saved on this user account.");
+
+            var filter = Builders<UserModel>.Filter.Eq(u => u.Id, user.Id);
+            var update = Builders<UserModel>.Update.Pull(u => u.Locations, locationId);
+
+            await _mongoDbService._users.UpdateOneAsync(filter, update);
+
+            return Ok();
+        }
+
         private string GenerateJwtToken(UserModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

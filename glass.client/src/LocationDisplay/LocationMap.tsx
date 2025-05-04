@@ -35,7 +35,7 @@ const LocationMap: React.FC<LocationMapProps> = ({ lat, long }) => {
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={14}
+            zoom={12}
         >
             <Marker position={center} />
         </GoogleMap>

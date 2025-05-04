@@ -36,24 +36,6 @@ namespace glass.Server.Controllers
             }
         }
 
-        [HttpPost("insert-test-user")]
-        public async Task<IActionResult> TestConnect()
-        {
-            var password = "testpass";
-            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password); // ✅ Hash the password
-
-            var newUser = new UserModel
-            {
-                Username = "testuser",
-                PasswordHash = hashedPassword, // ✅ Use PasswordHash now
-                Locations = new List<string> { "12345", "67890" }
-            };
-
-            await _mongoDbService.InsertUserAsync(newUser);
-
-            return Ok("User inserted successfully!");
-        }
-
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {

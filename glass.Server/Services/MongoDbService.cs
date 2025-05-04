@@ -60,7 +60,7 @@ namespace glass.Server.Services
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_jwtSecretKey);
+                var key = Convert.FromBase64String(_jwtSecretKey);
 
                 var validationParameters = new TokenValidationParameters
                 {

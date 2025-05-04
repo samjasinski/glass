@@ -10,6 +10,7 @@ using System.Text;
 using BCrypt.Net;
 using System.Diagnostics;
 using dotenv.net;
+using MongoDB.Driver;
 
 namespace glass.Server.Controllers
 {

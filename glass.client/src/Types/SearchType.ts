@@ -1,3 +1,3 @@
 export interface SearchType {
-    type: "geo" | "name";
+    type: "coordinates" | "name";
 }

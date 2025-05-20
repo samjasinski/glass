@@ -3,7 +3,7 @@ import axios from "axios";
 import { Location } from "../Types/Location";
 
 interface LocationSearchProps {
-    searchType: "geo" | "name";
+    searchType: "coordinates" | "name";
     locationData: Location[]; // Array of Location objects
     setLocationData: React.Dispatch<React.SetStateAction<Location[]>>; // useState setter function
 }
@@ -54,7 +54,7 @@ const LocationSearch = ({
         event.preventDefault();
         setError(""); // Reset error state
 
-        if (searchType == "geo") {
+        if (searchType == "coordinates") {
             // Parse lat and lon to float when submitting
             const parsedLat = parseFloat(lat);
             const parsedLon = parseFloat(lon);
@@ -66,7 +66,7 @@ const LocationSearch = ({
 
             try {
                 const response = await axios.get(
-                    `http://localhost:5253/api/locations/geo?lat=${parsedLat}&lon=${parsedLon}`
+                    `http://localhost:5253/api/WillyWeather/location/coordinates?lat=${parsedLat}&lon=${parsedLon}`
                 );
                 // ts wasn't stopping me for setting something which did not match a Location
                 // so i have force extracted the "location" object from the API res and wrapped it in []
@@ -85,7 +85,7 @@ const LocationSearch = ({
             // if a valid string was entered, attempt to pull the data from Willy Weather for this location by hitting hte /location/name route in our server
             try {
                 const response = await axios.get(
-                    `http://localhost:5253/api/locations/name?locationname=${locationName}`
+                    `http://localhost:5253/api/WillyWeather/location/name?locationname=${locationName}`
                 );
                 setLocationData(response.data); // Set the response data
             } catch (err) {
@@ -95,7 +95,7 @@ const LocationSearch = ({
         }
     };
 
-    return searchType == "geo" ? (
+    return searchType == "coordinates" ? (
         <div>
             <form onSubmit={handleSubmit} className="bg-white border-l border-r border-b border-gray-300 rounded-b px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">

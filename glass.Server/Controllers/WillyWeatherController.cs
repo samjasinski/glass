@@ -4,7 +4,7 @@ using dotenv.net;
 
 namespace YourNamespace.Controllers
 {
-    [Route("api/locations")]
+    [Route("api/[controller]")]
     [ApiController]
     public class WillyWeatherController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace YourNamespace.Controllers
             }
         }
 
-        [HttpGet("geo")]
+        [HttpGet("location/coordinates")]
         public async Task<IActionResult> GetLocationByGeo([FromQuery] double? lat, [FromQuery] double? lon)
         {
             if (!lat.HasValue || !lon.HasValue)
@@ -54,7 +54,7 @@ namespace YourNamespace.Controllers
             }
         }
 
-        [HttpGet("name")]
+        [HttpGet("location/name")]
         public async Task<IActionResult> GetLocationByName([FromQuery] string? locationname)
         {
             if (string.IsNullOrWhiteSpace(locationname))
@@ -77,7 +77,7 @@ namespace YourNamespace.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("test")]
         public IActionResult Test() => Ok("Hello, world!");
     }
 }

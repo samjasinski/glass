@@ -147,6 +147,20 @@ namespace glass.Server.Controllers
             return Ok();
         }
 
+        [HttpGet("locations")]
+        public async Task<IActionResult> GetUserLocations()
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (string.IsNullOrEmpty(token))
+                return Unauthorized("Authorization token is missing.");
+
+            var user = await _mongoDbService.GetUserFromTokenAsync(token);
+            if (user == null)
+                return Unauthorized("Invalid token or user not found.");
+
+            return Ok(user.Locations ?? new List<string>());
+        }
+
         private string GenerateJwtToken(UserModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
